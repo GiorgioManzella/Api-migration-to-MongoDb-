@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import listEndpoints from "express-list-Endpoints";
+import blogRouter from "../services/blogs/index.js";
 
 const server = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,8 @@ server.use(cors()); //cross origin resource sharing
 server.use(express.json()); // ability to receive and send JSON responses
 
 //********************************************ENDPOINTS */
+
+server.use("/blog", blogRouter);
 
 //********************************ERROR HANDLERS
 
