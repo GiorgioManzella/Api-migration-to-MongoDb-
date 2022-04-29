@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import listEndpoints from "express-list-Endpoints";
 import blogRouter from "../services/blogs/index.js";
+import commentRouter from "../services/comments/index.js";
 
 const server = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ server.use(express.json()); // ability to receive and send JSON responses
 //********************************************ENDPOINTS */
 
 server.use("/blog", blogRouter);
+server.use("blog/comments", commentRouter);
 
 //********************************ERROR HANDLERS
 
