@@ -4,6 +4,11 @@ import cors from "cors";
 import listEndpoints from "express-list-Endpoints";
 import blogRouter from "../services/blogs/index.js";
 import commentRouter from "../services/comments/index.js";
+import {
+  unauthorizedHandler,
+  forbidden,
+  catchAllErros,
+} from "../src/error-handler.js";
 
 const server = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +24,10 @@ server.use("/blog", blogRouter);
 server.use("blog/comments", commentRouter);
 
 //********************************ERROR HANDLERS
+
+server.use(unauthorizedHandler);
+server.use(forbidden);
+server.use(catchAllErros);
 
 mongoose.connect(process.env.MONGO_CONNECTION);
 mongoose.connection.on("connected", () => {

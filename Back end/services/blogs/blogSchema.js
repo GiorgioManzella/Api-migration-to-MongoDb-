@@ -20,6 +20,8 @@ const blogSchema = new Schema(
   { timestamps: true }
 );
 
+//auth
+
 blogSchema.pre("save", async function (next) {
   const Blog = this;
   const password = this.password;
@@ -31,5 +33,28 @@ blogSchema.pre("save", async function (next) {
   } else {
   }
 });
+// not returning password
+
+blogSchema.methods.toJSON = function () {
+  const data = this;
+  const dataObject = data.toObject(); //always convert to object to delete.
+
+  delete dataObject.password;
+  delete dataObject._id;
+
+  return dataObject;
+};
+
+blogSchema.statics.checkCredentials = async function (userName, password) {
+  const blog = await this.findOne({ userName });
+
+  if (blog) {
+    const isMatch = await bcrypt.compare(password, blog.password);
+
+    if (isMatch) return blog;
+  } else {
+    return null;
+  }
+};
 
 export default model("Blog", blogSchema); // linked to user collection / if not present will be created

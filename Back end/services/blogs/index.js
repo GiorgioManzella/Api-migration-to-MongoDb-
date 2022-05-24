@@ -1,5 +1,6 @@
 import express from "express";
 import blogSchema from "./blogSchema.js";
+import { basicAuthMiddleware } from "../../src/auth/basicAuth.js";
 
 const blogRouter = express.Router();
 
@@ -16,7 +17,7 @@ blogRouter.post("/", async function (req, res, next) {
 });
 //*********************************************************GET
 
-blogRouter.get("/", async function (req, res, next) {
+blogRouter.get("/", basicAuthMiddleware, async function (req, res, next) {
   try {
     const blogs = await blogSchema.find();
     res.send(blogs);
