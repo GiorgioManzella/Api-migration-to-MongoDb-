@@ -8,7 +8,7 @@ export const basicAuthMiddleware = async (req, res, next) => {
   } else {
     const base64C = req.headers.authorization.split(" ")[1];
     const [userName, password] = atob(base64C).split(":");
-    console.log("nice", userName, password);
+    console.log("credentials", userName, password);
 
     const blog = await blogSchema.checkCredentials(userName, password);
 

@@ -12,8 +12,6 @@ commentRouter.post("/:userid/comments", async function (req, res, next) {
 
     if (selectedBlog) {
       const blogToComment = { ...selectedBlog, comment: req.body };
-
-      
     } else {
       next(createError(404, "Comment not found"));
     }

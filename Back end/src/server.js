@@ -4,6 +4,7 @@ import cors from "cors";
 import listEndpoints from "express-list-Endpoints";
 import blogRouter from "../services/blogs/index.js";
 import commentRouter from "../services/comments/index.js";
+import storyRouter from "../services/stories/index.js";
 import {
   unauthorizedHandler,
   forbidden,
@@ -22,6 +23,7 @@ server.use(express.json()); // ability to receive and send JSON responses
 
 server.use("/blog", blogRouter);
 server.use("blog/comments", commentRouter);
+server.use("me/stories", storyRouter);
 
 //********************************ERROR HANDLERS
 
