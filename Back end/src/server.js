@@ -21,11 +21,10 @@ server.use(cors()); //cross origin resource sharing
 server.use(express.json()); // ability to receive and send JSON responses
 
 //********************************************ENDPOINTS */
-
+server.use("/user", userRouter);
 server.use("/blog", blogRouter);
 server.use("blog/comments", commentRouter);
 server.use("me/stories", storyRouter);
-server.use("/user", userRouter);
 
 //********************************ERROR HANDLERS
 

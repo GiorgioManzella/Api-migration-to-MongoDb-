@@ -33,3 +33,11 @@ export const generateRefreshToken = (payload) =>
       }
     )
   );
+
+export const verifyRefreshToken = (token) =>
+  new Promise((resolve, reject) =>
+    jwt.verify(token, process.env.REFRESH_SECRET, (err, decoded) => {
+      if (err) reject(err);
+      else resolve(decoded);
+    })
+  );
