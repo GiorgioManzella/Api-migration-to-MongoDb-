@@ -1,8 +1,27 @@
 import express from "express";
 import blogSchema from "./blogSchema.js";
 import { basicAuthMiddleware } from "../../src/auth/basicAuth.js";
+import { generateAccessToken } from "../../src/auth/tools.js";
 
 const blogRouter = express.Router();
+
+//********************************************************LOGIN */
+
+blogRouter.post("/login", async function (req, res, next) {
+  try {
+    const { email, password } = req.body;
+    const blog = await blogSchema.checkCredentials(email, password);
+    if (user) {
+      const token = await generateAccessToken({
+        _id: user._id,
+        role: user.role,
+      });
+      res.send({ accessToken: token });
+    } else {
+      next(createError(401, "creadential are not ok"));
+    }
+  } catch (error) {}
+});
 
 //*********************************************************POST
 
