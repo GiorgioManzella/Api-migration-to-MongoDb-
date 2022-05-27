@@ -11,10 +11,10 @@ blogRouter.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body;
     const blog = await blogSchema.checkCredentials(email, password);
-    if (user) {
+    if (blog) {
       const token = await generateAccessToken({
-        _id: user._id,
-        role: user.role,
+        _id: blog._id,
+        role: blog.role,
       });
       res.send({ accessToken: token });
     } else {

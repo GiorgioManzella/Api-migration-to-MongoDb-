@@ -16,6 +16,7 @@ const blogSchema = new Schema(
     userName: { type: String },
     email: { type: String },
     password: { type: String },
+    refresh_Token: { type: String },
   },
   { timestamps: true }
 );
@@ -57,4 +58,4 @@ blogSchema.statics.checkCredentials = async function (userName, password) {
   }
 };
 
-export default model("Blog", blogSchema); // linked to user collection / if not present will be created
+export default model("Blog", blogSchema);

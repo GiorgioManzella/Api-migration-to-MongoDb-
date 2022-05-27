@@ -5,7 +5,7 @@ export const generateAccessToken = (payload) =>
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1 week" },
+      { expiresIn: "15m" },
       (err, token) => {
         if (err) reject(err);
         else resolve(token);
@@ -19,4 +19,17 @@ export const verifyAccessToken = (token) =>
       if (err) reject(err);
       else resolve(decoded);
     })
+  );
+
+export const generateRefreshToken = (payload) =>
+  new Promise((resolve, reject) =>
+    jwt.sign(
+      payload,
+      process.env.REFRESH_SECRET,
+      { expiresIn: "1 day" },
+      (err, token) => {
+        if (err) reject(err);
+        else resolve(token);
+      }
+    )
   );
