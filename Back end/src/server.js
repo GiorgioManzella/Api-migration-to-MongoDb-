@@ -10,6 +10,7 @@ import {
   forbidden,
   catchAllErros,
 } from "../src/error-handler.js";
+import userRouter from "../services/users/index.js";
 
 const server = express();
 const port = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ server.use(express.json()); // ability to receive and send JSON responses
 server.use("/blog", blogRouter);
 server.use("blog/comments", commentRouter);
 server.use("me/stories", storyRouter);
+server.use("/user", userRouter);
 
 //********************************ERROR HANDLERS
 
