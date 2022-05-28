@@ -45,3 +45,5 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 export default userRouter;
+
+// implement google authentication + create a front end
