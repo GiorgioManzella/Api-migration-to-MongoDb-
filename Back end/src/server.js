@@ -11,14 +11,19 @@ import {
   catchAllErros,
 } from "../src/error-handler.js";
 import userRouter from "../services/users/index.js";
+import passport from "passport";
+import GoogleStrategy from "./auth/googleAuth.js";
 
 const server = express();
 const port = process.env.PORT || 3000;
+
+passport.use("google", GoogleStrategy);
 
 //*****************************************MIDDLEWARES
 
 server.use(cors()); //cross origin resource sharing
 server.use(express.json()); // ability to receive and send JSON responses
+server.use(passport.initialize());
 
 //********************************************ENDPOINTS */
 server.use("/user", userRouter);

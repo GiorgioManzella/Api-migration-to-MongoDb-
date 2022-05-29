@@ -2,6 +2,7 @@ import express from "express";
 import userSchema from "./userSchema.js";
 import { generateAccessToken } from "../../src/auth/tools.js";
 import createError from "http-errors";
+import passport from "passport";
 
 const userRouter = express.Router();
 
@@ -42,6 +43,16 @@ userRouter.post("/register", async (req, res, next) => {
     console.log(error);
     next(error);
   }
+});
+
+userRouter.get(
+  "/googleLogin",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+userRouter.get("/googleredirect", passport.authenticate("google"), () => {
+  console.log(req.token);
+  res.redirect(`http://localhost:3000?accessToken=${req.user.token}`);
 });
 
 export default userRouter;
